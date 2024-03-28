@@ -16,6 +16,7 @@ describe('Login the customer', () => {
     it('Login the user with correct credentials', () => {
 
         Login.Email_n_Password(cred[0].Client.Email, cred[0].Client.Password)
+        cy.url().should('include', 'dashboard')
     })
 
     it('Login the user with wrong credentials', () => {
