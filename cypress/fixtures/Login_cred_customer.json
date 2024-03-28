@@ -1,0 +1,16 @@
+[
+    {
+      "Client": {
+        "Email": "guarav.pal@ksolves.com",
+        "Password": "Gaurav@123"
+      }
+    },
+    {
+      "Invalid": {
+        "Email": "test124@gmail.com",
+        "Password": "1234567"
+      }
+    }
+  ]
+  
+  
