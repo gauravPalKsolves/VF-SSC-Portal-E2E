@@ -11,21 +11,23 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          browser: chrome  # This line is corrected to run in chrome browser
           command: npm run loginCustomer
-         
-
   Signup_File:
-            name: Signup the customer
-            runs-on: ubuntu-22.04
-            steps:
-              - name: Checkout
-                uses: actions/checkout@v4
-              # Install npm dependencies, cache them correctly
-              # and run all Cypress tests
-              - name: Cypress run
-                uses: cypress-io/github-action@v6
-                with:
-                  browser: chrome  # This line is corrected to run in chrome browser
-                  command: npm run signupCustomer
+    name: Signup the customer
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run signupCustomer
 
+
+      - name: Cypress test report on github actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mochawesome HTML Report   # we can change this name by own choice
+          path: cypress/reports/html  # we can change this path by own choice
