@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "loginCustomer": "npx cypress run --spec cypress/e2e/Login_Customer.cy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
