@@ -1,4 +1,4 @@
-name: Sanity test
+name: Login File
 on: push
 jobs:
   cypress-run:
@@ -12,3 +12,4 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
             command : npm run loginCustomer
+            browser : chrome
