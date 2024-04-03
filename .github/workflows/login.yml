@@ -11,6 +11,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          browser: chrome
+          browser: chrome   # This line is added for running in chrome browser
           command: npm run loginCustomer
          
+
