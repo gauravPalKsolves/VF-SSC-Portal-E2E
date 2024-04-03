@@ -1,0 +1,31 @@
+name: Login and Signup the customer
+on: push
+jobs:
+  Login_File:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome  # This line is corrected to run in chrome browser
+          command: npm run loginCustomer
+         
+
+  Signup_File:
+            name: Signup the customer
+            runs-on: ubuntu-22.04
+            steps:
+              - name: Checkout
+                uses: actions/checkout@v4
+              # Install npm dependencies, cache them correctly
+              # and run all Cypress tests
+              - name: Cypress run
+                uses: cypress-io/github-action@v6
+                with:
+                  browser: chrome  # This line is corrected to run in chrome browser
+                  command: npm run signupCustomer
+

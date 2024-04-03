@@ -1,4 +1,4 @@
-name: Sanity
+name: Sanity Suite
 on: push
 jobs:
   cypress-run:
@@ -11,5 +11,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          browser: chrome
+          browser: chrome  # this line will run all the test cases in chrome
          
