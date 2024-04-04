@@ -11,7 +11,7 @@ describe('Signup the customer', () => {
         SignUp.OpenTheURL();
     });
 
-    it.skip('Signup the user with correct credentials', () => {
+    it('Signup the user with correct credentials', () => {
         SignUp.RegisterNow();
         SignUp.CustomerFirstandLastname(cred[0].Client.First, cred[0].Client.Last);
         SignUp.customerrandomemail();

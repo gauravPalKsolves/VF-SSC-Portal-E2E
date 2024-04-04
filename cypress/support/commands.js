@@ -10,9 +10,16 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
+
+Cypress.Commands.add('login', (email, password) => {
+    cy.visit(''); 
+    cy.get('[placeholder="Enter Email Address"]').type(email);
+    cy.get('[placeholder="Enter Password"]').type(password);
+    cy.get('.ssc-primary-green-btn').click();
+  });
+  
+
+
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
 //
