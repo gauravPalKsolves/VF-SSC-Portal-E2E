@@ -14,6 +14,6 @@ describe('Login the customer', () => {
         cy.login(cred[1].Invalid.Email, cred[1].Invalid.Password);
         cy.contains('Invalid Credentials..!!').should('be.visible').and('have.text', 'Invalid Credentials..!!');
     });
+
 });
 
-// Testing
