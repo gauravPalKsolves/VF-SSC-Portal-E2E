@@ -41,11 +41,6 @@ export class SignUpCustomer {
         return email; // Return the generated email
     }
 
-    saveGeneratedEmailToFixtureFile(email) {
-        const emailData = { email: email };
-        cy.writeFile('cypress/fixtures/generated_email.json', emailData);
-    }
-
     generatePassword() {
         const minPasswordLength = 10;
         const maxPasswordLength = 16;
@@ -75,6 +70,15 @@ export class SignUpCustomer {
 
         return password;
     }
+
+    saveGeneratedEmailandPasswordToFixtureFile(email, password) {
+        const emailData = { email: email };
+        const passwordData = { password: password };
+        cy.writeFile('cypress/fixtures/generated_email.json', emailData);
+        cy.writeFile('cypress/fixtures/generated_password.json', passwordData);
+        cy.wait(1000);
+    }
+
 
     Submit() {
         cy.get(this.SignUp_Locators.SignupSubmit_button).click({force: true})
