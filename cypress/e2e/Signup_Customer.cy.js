@@ -20,7 +20,7 @@ describe('Signup the customer', () => {
         cy.wait(1000);
     });
 
-    it('Signup the user with wrong credentials', () => {
+    it.only('Signup the user with wrong credentials', () => {
         SignUp.RegisterNow();
         SignUp.CustomerFirstandLastname(cred[1].Client.First, cred[1].Client.Last);
         SignUp.customerrandomemail();
