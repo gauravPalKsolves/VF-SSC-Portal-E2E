@@ -13,11 +13,19 @@
 
 Cypress.Commands.add('login', (email, password) => {
     cy.visit(''); 
-    cy.get('[placeholder="Enter Email Address"]').type(email);
-    cy.get('[placeholder="Enter Password"]').type(password);
-    cy.get('.ssc-primary-green-btn').click();
+    cy.get('[placeholder="User Id"]').type(email);
+    cy.get('[placeholder="Password"]').type(password);
+    cy.get('[type="password"]').click()
   });
   
+
+
+  Cypress.Commands.add('loginVuze', (email, password) => {
+    cy.visit(Cypress.env('Vuze')); 
+    cy.get('[placeholder="User Id"]').type('Neha3.S');
+    cy.get('[placeholder="Password"]').type('Nokia@1234');
+    cy.get('[ng-click="enterLogin()"]').click();
+  });
 
 
 // -- This is a child command --

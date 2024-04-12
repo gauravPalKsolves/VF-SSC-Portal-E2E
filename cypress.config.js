@@ -11,8 +11,13 @@
     },
 
 
-    // To add more env 
-    // env:{
-    //   Testing :'https://automationpanda.com/2021/12/29/want-to-practice-test-automation-try-these-demo-sites/',
-    // },
+    // Added one more env for google map testing
+    env:{
+      Googlemap :'https://www.google.com/maps/@28.6031121,77.3668853,15z?entry=ttu',
+      Vuze: 'https://vuze5g.jio.com/xro_rjil_5g/'
+    },
+
+    viewportHeight: 1080,
+    viewportWidth: 1920,
+
   });
