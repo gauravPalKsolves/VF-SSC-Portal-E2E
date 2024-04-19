@@ -1,23 +1,24 @@
-  const { defineConfig } = require("cypress");
+module.exports = {
+  //...
+  e2e: {
+    //...
+    setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
 
-  module.exports = defineConfig({
-    reporter: 'cypress-mochawesome-reporter',
-    e2e: {
-      baseUrl: 'https://devportal.safetyservicescompany.com/portal/login',
-      setupNodeEvents(on, config) {
-        require('cypress-mochawesome-reporter/plugin')(on);
-        // implement node event listeners here
-      },
+      // Add task for taking CSV screenshot
+      on('task', {
+        takeCsvScreenshot(csvContent) {
+          // Implement your logic to take a screenshot of CSV data
+          // For example:
+          const screenshotPath = 'cypress/screenshots/CSV_Screenshot.png'; // Replace with actual screenshot path
+          // Logic to capture screenshot
+          return screenshotPath;
+        },
+      });
+
+      // Add your test case preprocessor here if needed
     },
-
-
-    // Added one more env for google map testing
-    env:{
-      Googlemap :'https://www.google.com/maps/@28.6031121,77.3668853,15z?entry=ttu',
-      Vuze: 'https://vuze5g.jio.com/xro_rjil_5g/'
-    },
-
-    viewportHeight: 1080,
-    viewportWidth: 1920,
-
-  });
+    //...
+  },
+  //...
+};
