@@ -86,101 +86,101 @@ describe('CSV Data Screenshot Test', () => {
 
 
   // Generate a pie chart from the CSV data and save it as a screenshot
-  it('Generate Pie Chart Screenshot', () => {
-    const csvFilePath = 'cypress/downloads/TEST.csv'; // Add the correct path to your CSV file
-    const screenshotPath = 'cypress/screenshots/screenshot.png'; // Add the correct path to your screenshot
-    cy.readFile(csvFilePath)
-      .then((csvData) => {
-        cy.window()
-          .then((win) => {
-            if (!win.Chart) {
-              cy.log('Loading Chart.js library...');
-              cy.request('https://cdn.jsdelivr.net/npm/chart.js').then((response) => {
-                // Inject Chart.js into the window object
-                cy.window().then((win) => {
-                  win.eval(response.body);
+    it('Generate Pie Chart Screenshot', () => {
+      const csvFilePath = 'cypress/downloads/TEST.csv'; // Add the correct path to your CSV file
+      const screenshotPath = 'cypress/screenshots/screenshot.png'; // Add the correct path to your screenshot
+      cy.readFile(csvFilePath)
+        .then((csvData) => {
+          cy.window()
+            .then((win) => {
+              if (!win.Chart) {
+                cy.log('Loading Chart.js library...');
+                cy.request('https://cdn.jsdelivr.net/npm/chart.js').then((response) => {
+                  // Inject Chart.js into the window object
+                  cy.window().then((win) => {
+                    win.eval(response.body);
+                  });
                 });
-              });
-            }
+              }
 
-            const csvContent = csvData.toString();
-            const rows = csvContent.split('\n').map(row => row.split(','));
-            const nameIndex = rows[0].findIndex(header => header.trim().toLowerCase() === 'name');
-            const data = rows.slice(1).reduce((map, row) => {
-              const name = row[nameIndex].trim();
-              const count = map.get(name) || 0;
-              map.set(name, count + 1);
-              return map;
-            }, new Map());
+              const csvContent = csvData.toString();
+              const rows = csvContent.split('\n').map(row => row.split(','));
+              const nameIndex = rows[0].findIndex(header => header.trim().toLowerCase() === 'name');
+              const data = rows.slice(1).reduce((map, row) => {
+                const name = row[nameIndex].trim();
+                const count = map.get(name) || 0;
+                map.set(name, count + 1);
+                return map;
+              }, new Map());
 
-            const chart = {
-              labels: Array.from(data.keys()),
-              datasets: [{
-                data: Array.from(data.values()),
-                backgroundColor: getRandomColors(data.size),
-              }],
-            };
+              const chart = {
+                labels: Array.from(data.keys()),
+                datasets: [{
+                  data: Array.from(data.values()),
+                  backgroundColor: getRandomColors(data.size),
+                }],
+              };
 
-            const config = {
-              type: 'pie',
-              data: chart,
-              options: {
-                responsive: true, // Enable responsiveness
-                legend: {
-                  display: true,
-                  position: 'left',
+              const config = {
+                type: 'pie',
+                data: chart,
+                options: {
+                  responsive: true, // Enable responsiveness
+                  legend: {
+                    display: true,
+                    position: 'left',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Data Distribution',
+                    fontSize: 20,
+                    fontStyle: 'bold',
+                  },
                 },
-                title: {
-                  display: true,
-                  text: 'Data Distribution',
-                  fontSize: 20,
-                  fontStyle: 'bold',
-                },
-              },
-            };
+              };
 
-            cy.document()
-              .then((doc) => {
-                const element = doc.createElement('div');
-                element.style.width = '50%'; // Set width and height to take less space
-                element.style.height = '50%';
-                element.style.margin = '0 auto'; // Center the chart
-                const canvasElement = doc.createElement('canvas');
-                const ctx = canvasElement.getContext('2d');
-                win.Chart.defaults.responsive = true; // Enable responsiveness
-                new win.Chart(ctx, config);
-                element.appendChild(canvasElement);
-                doc.body.appendChild(element);
-                cy.wrap(element).as('chartElement');
-              });
+              cy.document()
+                .then((doc) => {
+                  const element = doc.createElement('div');
+                  element.style.width = '50%'; // Set width and height to take less space
+                  element.style.height = '50%';
+                  element.style.margin = '0 auto'; // Center the chart
+                  const canvasElement = doc.createElement('canvas');
+                  const ctx = canvasElement.getContext('2d');
+                  win.Chart.defaults.responsive = true; // Enable responsiveness
+                  new win.Chart(ctx, config);
+                  element.appendChild(canvasElement);
+                  doc.body.appendChild(element);
+                  cy.wrap(element).as('chartElement');
+                });
 
-            const pieChartScreenshotPath = `${screenshotPath.replace('.png', '')}_PieChart.png`;
-            cy.get('@chartElement')
-              .screenshot(pieChartScreenshotPath, {
-                capture: 'viewport',
-                clip: { x: 0, y: 0, width: 1920, height: 10000 },
-              })
-              .then(() => {
-                cy.get('@chartElement').invoke('remove');
-              })
-              .then(() => {
-                cy.log(`Pie Chart saved at: ${pieChartScreenshotPath}`);
-              });
-          });
-      });
-  });
+              const pieChartScreenshotPath = `${screenshotPath.replace('.png', '')}_PieChart.png`;
+              cy.get('@chartElement')
+                .screenshot(pieChartScreenshotPath, {
+                  capture: 'viewport',
+                  clip: { x: 0, y: 0, width: 1920, height: 10000 },
+                })
+                .then(() => {
+                  cy.get('@chartElement').invoke('remove');
+                })
+                .then(() => {
+                  cy.log(`Pie Chart saved at: ${pieChartScreenshotPath}`);
+                });
+            });
+        });
+    });
 
-  // Helper function to get random colors for pie chart
-  function getRandomColors(count) {
-    const colors = [];
-    for (let i = 0; i < count; i++) {
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
-      colors.push(`rgb(${r}, ${g}, ${b})`);
+    // Helper function to get random colors for pie chart
+    function getRandomColors(count) {
+      const colors = [];
+      for (let i = 0; i < count; i++) {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        colors.push(`rgb(${r}, ${g}, ${b})`);
+      }
+      return colors;
     }
-    return colors;
-  }
 });
 
 
